@@ -1,7 +1,7 @@
 # Process Hollowing
 Process Hollowing involves the execution of custom arbitrary code within the memory space of a legitimate process
 
-## Workflow
+## How it works
 - The target process is created with the suspended flag
 - PBI is acquired using NtQueryInformationProcess
 - Memory gets allocated for the new image base (RWX gets picked up by defender)
