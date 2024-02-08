@@ -14,7 +14,7 @@ Process Hollowing involves the execution of custom arbitrary code within the mem
 
 ## Usage
 #### x64
-- Either build the exe or get it from releases
+- Either build the exe ~~or get it from releases~~ flagged as malware
 - Create paths.txt in the same directory as the exe
 - Enter the paths to your executables
 - If you wish to hardcode the shellcode, do what the comment says
