@@ -6,7 +6,9 @@ Process Hollowing involves the execution of custom arbitrary code within the mem
 - PBI is acquired using NtQueryInformationProcess
 - Memory gets allocated for the new image base (RWX gets picked up by defender)
 - Original code is unmapped
-- Shellcode is written to the memory space that was allocated earlier
+- Shellcode is written to the allocated memory space
+- Image base is rewritten using the PBI and the offset of 0x10
+- A new thread is created at entry point
 - Execution is resumed so everything is ran in the context of the legit process
 - Clean up
 
