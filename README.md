@@ -1,19 +1,38 @@
 # Process Hollowing
-Process hollowing is technique to hide malware inside other programs but it works for game enhancers aswell
+Process Hollowing involves the execution of custom arbitrary code within the memory space of a legitimate process
+
+## Workflow
+- The target process is created with the suspended flag
+- PBI is acquired using NtQueryInformationProcess
+- Memory gets allocated for the new image base (RWX gets picked up by defender)
+- Original code is unmapped
+- Shellcode is written to the memory space that was allocated earlier
+- Execution is resumed so everything is ran in the context of the legit process
+- Clean up
 
 ## Usage
-1. Clone the repo based on your executables architecture
-2. Turn your executable into shellcode using the provided converter
-3. Paste it into `shellcode.h`
-4. Set the path in `main.cpp` to your desired process
-5. Compile in `Release | x64`
+#### x64
+- Either build the exe or get it from releases
+- Create paths.txt in the same directory as the exe
+- Enter the paths to your executables
+- If you wish to hardcode the shellcode, do what the comment says
+
+#### x86
+- Clone the repo and hardcode your shellcode in `hdr/shellcode.h`
+- You can get the shellcode using the provided shellcode converter
+- If you wish to merge these 2 solutions, go ahead and open a pull request
+
+## Resources
+- If you wish to learn more about this technique you should check these out:
+    - [What is process hollowing by bmdyy](https://www.youtube.com/watch?v=aQQT-nYoiJo)
+    - [Malware Theory - Process Injection by MalwareAnalysisForHedgehogs](https://www.youtube.com/watch?v=tBR1-1J5Jec)
 
 ## Need help?
 Contact me through Discord [here](https://hellokittyfan48.github.io/)
 
 ### Note
 - Subsystems of both executables should be matching
-- I can't be bothered to merge the 2 architectures, if you feel like doing it open a pull request
-- This is for EDUCATIONAL PURPOSES ONLY and shouldn't be used to inject MALICIOUS code into legitimate processes
+- If you tweak this enough it will bypass most UM anticheats
+- This is for EDUCATIONAL PURPOSES ONLY
 
 #### Leave a 🌟 if you like it <3

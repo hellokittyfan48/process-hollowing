@@ -12,12 +12,5 @@ typedef NTSTATUS(WINAPI* NTQUERYINFOPROC64)(
 	PULONG_PTR       ReturnLength
 );
 
-void printPlus() {
-	HANDLE console = GetStdHandle(STD_OUTPUT_HANDLE);
-
-	std::cout << "\n[";
-	SetConsoleTextAttribute(console, 2);
-	std::cout << "+";
-	SetConsoleTextAttribute(console, 7);
-	std::cout << "] ";
-}
+unsigned char* getPEbytes(const std::string& filename, std::streamsize& size);
+void printPlus();
