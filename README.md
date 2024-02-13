@@ -30,7 +30,7 @@ Process Hollowing involves the execution of custom arbitrary code within the mem
     - [Malware Theory - Process Injection by MalwareAnalysisForHedgehogs](https://www.youtube.com/watch?v=tBR1-1J5Jec)
 
 ## Need help?
-Contact me through Discord [here](https://hellokittyfan48.github.io/)
+You can find my Discord [here](https://hellokittyfan48.github.io/)
 
 ### Note
 - Subsystems of both executables should be matching
