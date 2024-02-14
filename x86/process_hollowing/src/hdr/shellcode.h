@@ -1,6 +1,5 @@
 #include <winternl.h>
 
-// NtQueryInformationProcess
 typedef NTSTATUS(WINAPI* NTQUERYINFOPROC)(
 	HANDLE           ProcessHandle,
 	PROCESSINFOCLASS ProcessInformationClass,
@@ -9,7 +8,6 @@ typedef NTSTATUS(WINAPI* NTQUERYINFOPROC)(
 	PULONG           ReturnLength
 	);
 
-// ur shellcode here
 unsigned char rawData[] = {
 
 }
