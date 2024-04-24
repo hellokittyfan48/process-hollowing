@@ -1,12 +1,14 @@
 # Process Hollowing
 Process Hollowing involves the execution of custom arbitrary code within the memory space of a legitimate process
 
-## Workflow
+## How it works
 - The target process is created with the suspended flag
 - PBI is acquired using NtQueryInformationProcess
 - Memory gets allocated for the new image base (RWX gets picked up by defender)
 - Original code is unmapped
-- Shellcode is written to the memory space that was allocated earlier
+- Shellcode is written to the allocated memory space
+- Image base is rewritten using the PBI and the offset of 0x10
+- A new thread is created at entry point
 - Execution is resumed so everything is ran in the context of the legit process
 - Clean up
 
@@ -27,7 +29,7 @@ Process Hollowing involves the execution of custom arbitrary code within the mem
     - [Malware Theory - Process Injection by MalwareAnalysisForHedgehogs](https://www.youtube.com/watch?v=tBR1-1J5Jec)
 
 ## Need help?
-Contact me through Discord [here](https://hellokittyfan48.github.io/)
+You can find my Discord [here](https://hellokittyfan48.github.io/)
 
 ### Note
 - Subsystems of both executables should be matching
