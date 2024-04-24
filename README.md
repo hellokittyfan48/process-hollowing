@@ -12,10 +12,9 @@ Process Hollowing involves the execution of custom arbitrary code within the mem
 
 ## Usage
 #### x64
-- Either build the exe or get it from releases
-- Create paths.txt in the same directory as the exe
-- Enter the paths to your executables
-- If you wish to hardcode the shellcode, do what the comment says
+- Clone the repo
+- Put your PE shellcode into the shellcode buffer in `hdr/shellcode.h`
+- Build in `Release | x64`
 
 #### x86
 - Clone the repo and hardcode your shellcode in `hdr/shellcode.h`

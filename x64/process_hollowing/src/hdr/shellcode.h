@@ -1,3 +1,3 @@
-//unsigned char shellcode[3] = {
-//	0x90, 0x90, 0x90
-//};
+unsigned char shellcode[3] = {
+	0x90, 0x90, 0x90
+};

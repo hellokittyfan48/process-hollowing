@@ -3,6 +3,7 @@
 
 #include "hdr/funcs.h"
 
+/*
 unsigned char* getPEbytes(const std::string& filename, std::streamsize& size) {
     std::ifstream file(filename, std::ios::binary | std::ios::ate);
 
@@ -23,6 +24,7 @@ unsigned char* getPEbytes(const std::string& filename, std::streamsize& size) {
 
     return buffer;
 }
+*/
 
 void printPlus() {
     HANDLE console = GetStdHandle(STD_OUTPUT_HANDLE);

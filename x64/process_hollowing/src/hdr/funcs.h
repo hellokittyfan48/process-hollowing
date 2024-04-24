@@ -12,5 +12,4 @@ typedef NTSTATUS(WINAPI* NTQUERYINFOPROC64)(
 	PULONG_PTR       ReturnLength
 );
 
-unsigned char* getPEbytes(const std::string& filename, std::streamsize& size);
 void printPlus();

