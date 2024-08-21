@@ -18,15 +18,12 @@
     <ClCompile Include="src\main.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="src\funcs.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="src\hdr\funcs.h">
+    <ClInclude Include="src\hdr\shellcode.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="src\hdr\shellcode.h">
+    <ClInclude Include="src\hdr\logger.h">
       <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>
